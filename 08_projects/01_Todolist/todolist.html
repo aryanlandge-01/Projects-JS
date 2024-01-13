@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do-list</title>
+    <style>
+       .header{
+        color: green;
+        text-align: center;
+        margin-top: 5%;
+        font-size: 3rem;
+       }
+       .todo-container{
+        text-align: center;
+        display: block;
+        margin-inline: 430px;
+       }
+       .todo {
+            /* background-color: #fff; */
+            padding: 20px;
+            border-radius: 8px;
+            /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+            text-align: center;
+        }
+
+        #todo-text {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+            width: 200px;
+        }
+
+        .add-todo {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .add-todo:hover {
+            background-color: #45a049;
+        }
+       .todotask {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: pink;
+            font-weight: 400;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 5px;
+            max-width: 300px; /* Set a max-width for better readability */
+        }
+    </style>
+</head>
+ 
+<body style="background-color: #414141;">
+     <h1 class="header">To-do-list</h1>
+     <!-- <div class="todo">
+        <input id="todo-text" type="text">
+        <button class="add-todo">Add</button>
+     </div>   -->
+     <div class="todo">
+        <input id="todo-text" type="text" placeholder="Enter your to-do">
+        <button class="add-todo">Add</button>
+    </div>
+     <div class="todo-container">
+        <div class="todotask">
+            <span>Make Tea</span>
+            <button class="rm-todo">❌</button>
+        </div>
+     </div>
+</body>
+<script>
+    let todo;
+    const Todocontainer = document.querySelector(".todo-container");
+    let todoList = [];
+    
+    document.getElementById("todo-text").addEventListener("input",(e) => {
+        todo = e.target.value;  
+    });
+    
+    document.querySelector(".add-todo").addEventListener("click",
+        () => {
+            if (todo) {
+                const todotask = document.createElement('div');
+                todotask.className = "todotask";
+                Todocontainer.appendChild(todotask);
+                todotask.innerHTML = `<span>${todo}</span><button class="rm-todo">❌</button>`
+                // Remove to do form the container
+                const deletebutton = todotask.querySelector(".rm-todo");
+                deletebutton.addEventListener("click",() => {
+                    todoList = todoList.filter(task => task !== todotask);
+                    Todocontainer.removeChild(todotask);
+                })
+                // Clear input field after adding to the list
+                document.getElementById("todo-text").value = "";
+                //Clear the todo  itself
+                todo = ""
+            } else {
+                alert("Please enter a to-do before adding.");
+            }
+        }
+     )
+    
+
+     
+</script>
+</html>
